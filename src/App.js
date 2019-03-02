@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 
 import './App.css';
+import { timingSafeEqual } from 'crypto';
 
 class App extends Component {
   constructor(props){
@@ -42,8 +43,20 @@ class App extends Component {
           this.setState({
             itemsList: [...newItemsList]
           })
+
+          if(newItemsList.length ===0){
+               this.setState({
+                 message: "No items in your shopping cart, add some"
+               })
+          }
         }
 
+        clearAll(){
+          this.setState({
+            itemsList : [],
+            message: "No items in your shopping cart, add some"
+          })
+        }
    render() {
      const { itemsList, message} = this.state
     return ( 
@@ -67,9 +80,9 @@ class App extends Component {
       
            <div className="content">
            {
-              message !== '' && <p className="message text-danger">{message}</p>
+             (message !== '' || itemsList.length===0) && <p className="message text-danger">{message}</p>
            }
-           
+           { itemsList.length > 0 &&
             <table className="table">
             
             <thead>
@@ -94,7 +107,16 @@ class App extends Component {
 
               ) )}
             </tbody>
+            <tfoot>
+               <tr>
+                <td colSpan="2">&nbsp;</td>
+                <td className="text-right"></td>
+                <button onClick={(e) =>  this.clearAll()}className="btn btn-danger btn-sm"> Clear All</button>
+                <td></td>
+                </tr>
+            </tfoot>
           </table>
+        }
           </div>
             </React.Fragment>
 
