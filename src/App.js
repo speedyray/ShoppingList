@@ -22,7 +22,7 @@ class App extends Component {
 
        if(isOnTheList){
          this.setState({
-           message: 'This item is already on the list'
+           message: 'Cannot add, item is already on the list'
          })
        } else {
        newItem !== '' && this.setState({
@@ -86,7 +86,7 @@ class App extends Component {
                 <td>1</td>
                 <td>{item}</td>
                 <td className="text-right">
-                <button onClick={(e) => this.removeItem(item)} type="button" className="btn btn-default btn-sm">Remove</button>
+                <button onClick={(e) => this.removeItem(item)} type="button" className="btn btn-danger btn-sm">Remove</button>
                 </td>
               </tr>
               
